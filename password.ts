@@ -1,12 +1,21 @@
-// Utility for password hashing and verification
-import bcrypt from 'bcryptjs'
+import bcryptjs from 'bcryptjs';
 
-const SALT_ROUNDS = 10
+const SALT_ROUNDS = 10;
 
-export async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, SALT_ROUNDS)
-}
+/**
+ * Hash a password using bcryptjs
+ */
+export const hashPassword = async (password: string): Promise<string> => {
+  const salt = await bcryptjs.genSalt(SALT_ROUNDS);
+  return bcryptjs.hash(password, salt);
+};
 
-export async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(password, hash)
-}
+/**
+ * Compare a plain password with a hashed password
+ */
+export const comparePassword = async (
+  plainPassword: string,
+  hashedPassword: string
+): Promise<boolean> => {
+  return bcryptjs.compare(plainPassword, hashedPassword);
+};
