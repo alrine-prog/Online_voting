@@ -35,7 +35,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/jest": "^29.5.11",
     "@types/bcryptjs": "^2.4.6",
-    "@types/jsonwebtoken": "^9.0.7",
+    "@types/jsonwebtoken": "^18.18.0",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.0",
     "jest": "^29.7.0",
