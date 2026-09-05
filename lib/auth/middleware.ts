@@ -1,4 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+// Add "export" before your function or variable declaration:
+export const authMiddleware = ...;
+
+// OR if using a named function:
+export function authMiddleware(...) { ... }
+
+import{ NextApiRequest, NextApiResponse } from 'next';
 import authMiddleware from '@/lib/auth/middleware';
 
 import { verifyToken, extractTokenFromHeader } from './jwt';
