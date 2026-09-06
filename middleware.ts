@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken, extractTokenFromHeader } from './jwt';
 import { DecodedToken } from './types';
 
+
 export interface NextApiRequestWithAuth extends NextApiRequest {
   user?: DecodedToken;
 }
