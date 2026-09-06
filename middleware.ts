@@ -15,9 +15,8 @@ export interface NextApiRequestWithAuth extends NextApiRequest {
   user?: DecodedToken;
 }
 
-/**
- * Authentication middleware to verify JWT tokens
- */
+ // Authentication middleware to verify JWT tokens
+ 
 export const authMiddleware = (handler: any) => {
   return async (req: NextApiRequestWithAuth, res: NextApiResponse) => {
     try {
@@ -41,9 +40,8 @@ export const authMiddleware = (handler: any) => {
   };
 };
 
-/**
- * Role-based authorization middleware
- */
+ // Role-based authorization middleware
+
 export const requireRole =
   (...roles: string[]) =>
   (handler: any) => {
@@ -73,9 +71,8 @@ export const requireRole =
     };
   };
 
-/**
- * Voter-specific middleware (checks approval status)
- */
+ // Voter-specific middleware (checks approval status)
+
 export const requireApprovedVoter = (handler: any) => {
   return async (req: NextApiRequestWithAuth, res: NextApiResponse) => {
     try {
