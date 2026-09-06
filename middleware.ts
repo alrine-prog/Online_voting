@@ -2,6 +2,20 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken, extractTokenFromHeader } from './jwt';
 import { DecodedToken } from './types';
 
+export interface NextApiRequestWithAuth extends NextApiRequest {
+  user?: DecodedToken;
+}
+
+export const authMiddleware = (handler: Function) => {
+  return async (req: NextApiRequestWithAuth, res: NextApiResponse) => {
+    // Middleware implementation here
+  };
+};
+
+//import { NextApiRequest, NextApiResponse } from 'next';
+//import { verifyToken, extractTokenFromHeader } from './jwt';
+//import { DecodedToken } from './types';
+
 // Extend NextApiRequest to include user
 declare global {
   namespace Express {
