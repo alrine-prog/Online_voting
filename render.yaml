@@ -20,6 +20,8 @@ services:
         value: https://online-voting.onrender.com
       - key: PORT
         value: 3000
+services:
+  # ... your existing web/app service configurations ...
 
   - type: pserv
     name: online-voting-db
@@ -27,16 +29,13 @@ services:
     ipAllowList:
       - source: 0.0.0.0/0
         description: allow all
-    
-    # PostgreSQL environment
-    database:
-      name: e_voting
-      user: postgres
-      version: "15"
-      
+
+# Separate PostgreSQL section at the top level
 databases:
   - name: e_voting
     databaseName: e_voting
     user: postgres
-    postgresMajorVersion: "15"
     plan: standard
+    postgresMajorVersion: "15"
+
+  - 
