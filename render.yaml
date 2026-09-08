@@ -27,3 +27,21 @@ databases:
     databaseName: e_voting
     plan: standard
     postgresMajorVersion: "15"
+# Exported from Render on 2026-09-08T07:45:56Z
+version: "1"
+projects:
+- name: My project
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: Online voting platform
+      runtime: node
+      repo: https://github.com/alrine-prog/Online_voting
+      plan: free
+      region: virginia
+      buildCommand: npm install && npm run build
+      startCommand: npm start
+      autoDeployTrigger: commit
+
+    
