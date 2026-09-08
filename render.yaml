@@ -20,7 +20,6 @@ services:
         value: https://online-voting.onrender.com
       - key: PORT
         value: 3000
-services:
   # ... your existing web/app service configurations ...
 
   - type: pserv
