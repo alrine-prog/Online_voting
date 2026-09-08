@@ -1,4 +1,4 @@
-//declare services 
+# declare services
 services:
   - type: web
     name: online-voting
