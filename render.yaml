@@ -38,4 +38,4 @@ databases:
     plan: standard
     postgresMajorVersion: "15"
 
-  - 
+
