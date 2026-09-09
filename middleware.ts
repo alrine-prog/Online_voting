@@ -1,33 +1,62 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { verifyToken, extractTokenFromHeader } from './jwt';
-import type { DecodedToken } from './types';
-
-export interface NextApiRequestWithAuth extends NextApiRequest {
-  user?: DecodedToken;
-  // Replace jsonwebtoken with jose:
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-const { payload } = await jwtVerify(token, secret);
+// Define public routes that do NOT require authentication
+const PUBLIC_ROUTES = ['/login', '/register', '/api/auth/login'];
 
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // 1. Allow public routes to bypass authentication
+  if (PUBLIC_ROUTES.some((route) => pathname.startsWith(route))) {
+    return NextResponse.next();
+  }
+
+  // 2. Extract JWT token from cookies or Authorization header
+  const token =
+    request.cookies.get('token')?.value ||
+    request.headers.get('authorization')?.replace('Bearer ', '');
+
+  // 3. Redirect to login if no token is present
+  if (!token) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('from', pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  try {
+    // 4. Verify token using 'jose' (Edge-compatible)
+    const secret = new TextEncoder().encode(
+      process.env.JWT_SECRET || 'your-fallback-secret-key'
+    );
+
+    const { payload } = await jwtVerify(token, secret);
+
+    // 5. Pass user details down to downstream requests via custom headers
+    const response = NextResponse.next();
+    response.headers.set('x-user-id', payload.sub as string);
+
+    return response;
+  } catch (error) {
+    console.error('JWT verification failed in middleware:', error);
+
+    // Redirect to login on invalid or expired token
+    const loginUrl = new URL('/login', request.url);
+    return NextResponse.redirect(loginUrl);
+  }
 }
 
-export const authMiddleware = (handler: (req: NextApiRequestWithAuth, res: NextApiResponse) => Promise<void> | void) => {
-  return async (req: NextApiRequestWithAuth, res: NextApiResponse) => {
-    const authHeader = req.headers.authorization;
-    const token = extractTokenFromHeader(authHeader);
-
-    if (!token) {
-      return res.status(401).json({ message: 'Authorization token missing' });
-    }
-
-    try {
-      const decoded = verifyToken(token);
-      req.user = decoded;
-      return handler(req, res);
-    } catch (error) {
-      return res.status(401).json({ message: 'Invalid or expired token' });
-    }
-  };
+// Specify which routes the middleware should run on
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public files (images, SVGs, etc.)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };
-
