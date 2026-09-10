@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased min-h-screen bg-gray-50 text-gray-900">
         <header className="bg-white border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <h1 className="text-xl font-bold tracking-tight">Online Voting</h1>
+            <h1 className="text-xl font-bold tracking-tight">E Voting System</h1>
           </div>
         </header>
 
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         </main>
 
         <footer className="bg-white border-t border-gray-200 mt-auto py-4 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} Online Voting System. All rights reserved.
+          © {new Date().getFullYear()} E Voting System. All rights reserved.
         </footer>
       </body>
     </html>
