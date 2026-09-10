@@ -1,6 +1,6 @@
-//page layout import './globals.css';
+import './globals.css';
 export const metadata = {
-  title: 'Online Voting System',
+  title: 'E Voting System',
   description: 'A secure online voting application',
 };
 
