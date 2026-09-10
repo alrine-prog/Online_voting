@@ -2,8 +2,9 @@ import './globals.css';
 export const metadata = {
   title: 'E Voting System',
   description: 'A secure online voting application',
-
-export default function RootLayout({ children }) {
+  {
+export default function RootLayout({ children })
+{
   return (
     <html lang="en">
       <head>
@@ -26,4 +27,5 @@ export default function RootLayout({ children }) {
       </body>
     </html>
   );
+}
 }
