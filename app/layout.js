@@ -3,6 +3,9 @@ export const metadata = {
   title: 'E Voting System',
   description: 'A secure online voting application',
 };
+tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 export default function RootLayout({ children }) {
   return (
