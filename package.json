@@ -1,7 +1,10 @@
 {
   "name": "online-voting",
   "version": "1.0.0",
-  "description": "Student Voting Platform - A secure online voting application",
+    "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
+  "description":E 🗳 Voting System - A secure online voting application",
   "private": true,
   "scripts": {
     "dev": "next dev",
