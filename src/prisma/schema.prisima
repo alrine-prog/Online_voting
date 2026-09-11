@@ -1,0 +1,92 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// User role definitions
+enum Role {
+  ADMIN
+  ELECTION_OFFICIAL
+  VOTER
+  ELECTION_OBSERVER
+}
+
+// Verification status for voters
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+// User model for authentication, profile data, and roles
+model User {
+  id                 String             @id @default(uuid())
+  email              String             @unique
+  username           String             @unique
+  password           String             // Hashed password
+  fullName           String
+  faculty            String
+  nationalIdNumber   String             @unique
+  nationalIdScanUrl  String             // Link/path to stored ID scan image
+  photoUrl           String             // Link/path to captured profile photo
+  role               Role               @default(VOTER)
+  verificationStatus VerificationStatus @default(PENDING)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  // Relationships
+  votes              Vote[]
+}
+
+// Election events
+model Election {
+  id          String      @id @default(uuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relationships
+  candidates  Candidate[]
+  votes       Vote[]
+}
+
+// Candidates running in a specific election
+model Candidate {
+  id          String   @id @default(uuid())
+  name        String
+  faculty     String?
+  party       String?
+  bio         String?
+  photoUrl    String?
+  electionId  String
+  createdAt   DateTime @default(now())
+
+  // Relationships
+  election    Election @relation(fields: [electionId], references: [id], onDelete: Cascade)
+  votes       Vote[]
+}
+
+// Recorded votes (Ensures one vote per user per election)
+model Vote {
+  id          String   @id @default(uuid())
+  userId      String
+  electionId  String
+  candidateId String
+  createdAt   DateTime @default(now())
+
+  // Relationships
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  election    Election  @relation(fields: [electionId], references: [id], onDelete: Cascade)
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  // Enforce unique constraint: A user can only vote once per election
+  @@unique([userId, electionId])
+}
+
