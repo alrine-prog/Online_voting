@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/**import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 // GET /api/users
@@ -24,5 +24,25 @@ export async function POST(request: Request) {
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+  }
+}
+**/
+export const dynamic = 'force-dynamic';
+
+export async function GET(request) {
+  try {
+    // Your fetch logic
+    return Response.json({ users: [] });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function POST(request) {
+  try {
+    // Your creation logic
+    return Response.json({ success: true });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
