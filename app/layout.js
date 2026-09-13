@@ -13,24 +13,24 @@ export default function RootLayout({ children }) {
   // Role-specific navigation items
   const navigationByRole = {
     voter: [
-      { name: 'Cast Vote', href: '/#vote', icon: Vote },
-      { name: 'Verification', href: '/#verify', icon: CheckCircle2 },
-      { name: 'Live Results', href: '/#results', icon: BarChart3 },
+      { name: 'Cast Vote', href: "/#vote", icon: Vote },
+      { name: 'Verification', href: "/#verify", icon: CheckCircle2 },
+      { name: 'Live Results', href: "/#results", icon: BarChart3 },
     ],
     admin: [
-      { name: 'Admin Dashboard', href: '/admin', icon: ShieldCheck },
-      { name: 'User Management', href: '/users, icon: UserCheck },
-      { name: 'System Logs', href: '/admin/logs', icon: Lock },
+      { name: 'Admin Dashboard', href: "/admin", icon: ShieldCheck },
+      { name: 'User Management', href: "/users" icon: UserCheck },
+      { name: 'System Logs', href: '"admin/logs", icon: Lock },
     ],
     official: [
-      { name: 'Election Setup', href: '/official/elections', icon: Vote },
-      { name: 'Candidate Review', href: '/official/candidates', icon: UserCheck },
-      { name: 'Tally Audit', href: '/official/tally', icon: BarChart3 },
+      { name: 'Election Setup', href: "/official", icon: Vote },
+      { name: 'Candidate Review', href: "/official/candidates", icon: UserCheck },
+      { name: 'Tally Audit', href: "/official/tally", icon: BarChart3 },
     ],
     observer: [
-      { name: 'Live Observation', href: '/observer/live', icon: Eye },
-      { name: 'Turnout Metrics', href: '/observer/metrics', icon: BarChart3 },
-      { name: 'Incident Reports', href: '/observer/reports', icon: AlertTriangle },
+      { name: 'Live Observation', href: "/observer/live", icon: Eye },
+      { name: 'Turnout Metrics', href: "/observer/metrics", icon: BarChart3 },
+      { name: 'Incident Reports', href: "/observer/reports", icon: AlertTriangle },
     ],
   };
 
