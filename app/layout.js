@@ -1,24 +1,14 @@
-'use client';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import {
-  Vote,
-  ShieldCheck,
-  UserCheck,
-  Eye,
-  Menu,
-  X,
-  Lock,
-  BarChart3,
-  CheckCircle2,
-  AlertTriangle
-} from 'lucide-react';
 import './globals.css';
 
 export default function RootLayout({ children }) {
-  // Active role state: 'voter' | 'admin' | 'official' | 'observer'
-  const [currentRole, setCurrentRole] = useState('voter');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  return (
+    <html lang="en">
+      <body className="bg-slate-50 min-h-screen">
+        {children}
+      </body>
+    </html>
+  );
+}
 
   // Role-specific navigation items
   const navigationByRole = {
@@ -29,7 +19,7 @@ export default function RootLayout({ children }) {
     ],
     admin: [
       { name: 'Admin Dashboard', href: '/admin', icon: ShieldCheck },
-      { name: 'User Management', href: '/admin/users', icon: UserCheck },
+      { name: 'User Management', href: '/users, icon: UserCheck },
       { name: 'System Logs', href: '/admin/logs', icon: Lock },
     ],
     official: [
